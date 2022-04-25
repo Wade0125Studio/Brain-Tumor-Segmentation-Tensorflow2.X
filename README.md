@@ -1,4 +1,6 @@
 # Brain-Tumor-Segmentation-Tensorflow2.X
+Brain-Tumor-Segmentation Dataset URL:https://mega.nz/file/g4lUGIID#Wmkbu7aKZwg-JCZh_a9SRQN2cNRaTsVZlEDKk6uxT_4
+Brain-Tumor-Segmentation Weights URL:https://mega.nz/file/Z4MG0aJa#laoaXtLFWr12z4qCf5syiHHsH-KzZOQeiUtpwjJqoxk
 
 ![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/rate%20dataset.png)
 
