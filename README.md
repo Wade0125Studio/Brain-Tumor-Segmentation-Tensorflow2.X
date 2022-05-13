@@ -29,13 +29,13 @@ Brain-Tumor-Segmentation Weights URL:https://mega.nz/file/Z4MG0aJa#laoaXtLFWr12z
 
 <p align="center">UNET</font></p>
 
+<div align="center">
+<img src="https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/Training_history%20U-Net.png">
+</div>
 
-![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/Training_history%20U-Net.png)
-
-
-
-![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/U-Net%20Predict%20Result.png)
-
+<div align="center">
+<img src="https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/U-Net%20Predict%20Result.png">
+</div>
 
 <p align="center">VGG19+UNET</font></p>
 
