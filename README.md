@@ -23,7 +23,11 @@ Brain-Tumor-Segmentation Weights URL:https://mega.nz/file/Z4MG0aJa#laoaXtLFWr12z
 --------------------
 
 
-![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/rate%20dataset.png)
+<div align="center">
+<img src="https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/rate%20dataset.png">
+</div>
+
+
 
 ![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/show%20dataset.png)
 
