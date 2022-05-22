@@ -25,37 +25,40 @@ Brain-Tumor-Segmentation Weights URL:https://mega.nz/file/Z4MG0aJa#laoaXtLFWr12z
 </div>
 
 
-
 ![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/show%20dataset.png)
 
-<p align="center">Custon Unet</font></p>
+--------------------
 
+<p align="center">InceptionResNetV2 Classifier</font></p>
+
+<div align="center">
+<img src="https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/Training_history_InceptionResNetV2_classify.png">
+</div>
+
+<div align="center">
+<img src="https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/InceptionResNetV2%20predict%20confusion%20matrix.png">
+</div>
+
+--------------------
+
+<p align="center">Custon Unet</font></p>
 <div align="center">
 <img src="https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/Training_history%20U-Net.png">
 </div>
-
 <div align="center">
 <img src="https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/U-Net%20Predict%20Result.png">
 </div>
 
+--------------------
+
 <p align="center">VGG19Unet</font></p>
-
-
 ![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/Training%20VGG19_U-Net.png)
-
-
-
 ![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/VGG19_U-Net%20predict%20result.png)
 
-
+--------------------
 
 <p align="center">Resnet50Unet</font></p>
-
-
 ![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/Training_history_ResNet-Unet_Segmentation.png)
-
-
-
 ![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/ResNet-Unet%20Segmentation%20predict%20result.png)
 
 
