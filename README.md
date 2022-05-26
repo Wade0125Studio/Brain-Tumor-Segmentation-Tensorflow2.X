@@ -72,10 +72,10 @@ Brain-Tumor-Segmentation Weights URL:https://mega.nz/file/Z4MG0aJa#laoaXtLFWr12z
 
 ![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/Training_history_AttentionUNet_Segmentation.png)
 
-![image](https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/AttentionUNet%20predict%20result.png)
 
-
-
+<div align="center">
+<img src="https://github.com/wade0125/Brain-Tumor-Segmentation-Tensorflow2.X/blob/main/img/AttentionUNet%20predict%20result.png">
+</div>
 
 
 
