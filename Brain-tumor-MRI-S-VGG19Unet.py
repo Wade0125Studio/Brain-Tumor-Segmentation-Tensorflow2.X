@@ -1,13 +1,6 @@
 import numpy as np 
 import pandas as pd 
-
 import os
-for dirname, _, filenames in os.walk('C:/Users/GIGABYTE/Downloads/Brain Tumor Segmentation'):
-    for filename in filenames:
-        print(os.path.join(dirname, filename))
-import os
-import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import cv2
@@ -33,18 +26,16 @@ from warnings import filterwarnings
 filterwarnings('ignore')
 import random
 import glob
+from plot_keras_history import show_history, plot_history
 from IPython.display import display
+from tensorflow import keras
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 
-data = pd.read_csv('C:/Users/GIGABYTE/Downloads/Brain Tumor Segmentation/lgg-mri-segmentation/data.csv')
+data = pd.read_csv('C:/Users/GIGABYTE/Downloads/Brain_Tumor_Segmentation/lgg-mri-segmentation/data.csv')
 data.info()
 
-
-data.head(10)
-
-
 data_map = []
-for sub_dir_path in glob.glob("C:/Users/GIGABYTE/Downloads/Brain Tumor Segmentation/lgg-mri-segmentation/"+"*"):
+for sub_dir_path in glob.glob("C:/Users/GIGABYTE/Downloads/Brain_Tumor_Segmentation/lgg-mri-segmentation/"+"*"):
     #if os.path.isdir(sub_path_dir):
     try:
         dir_name = sub_dir_path.split('/')[-1]
@@ -80,7 +71,6 @@ brain_df['mask'].value_counts()
 sns.countplot(brain_df['mask'])
 plt.show()
 
-
 count = 0
 i = 0
 fig,axs = plt.subplots(12,3, figsize=(20,50))
@@ -100,7 +90,7 @@ for mask in brain_df['mask']:
     if (count==12):
         break
 fig.tight_layout()
-plt.savefig("C:/Users/GIGABYTE/Downloads/Brain Tumor Segmentation/show dataset.png")
+plt.savefig("C:/Users/GIGABYTE/Downloads/Brain_Tumor_Segmentation/show dataset.png")
 
 
 brain_df_train = brain_df.drop(columns=['patient_id'])
@@ -251,40 +241,40 @@ def focal_tversky(y_true,y_pred):
     return K.pow((1-pt_1), gamma)
 def tversky_loss(y_true, y_pred):
     return 1 - tversky(y_true,y_pred)
+def dice_coef(y_true, y_pred):
+    y_truef = keras.backend.flatten(y_true)
+    y_predf = keras.backend.flatten(y_pred)
+    And = keras.backend.sum(y_truef*y_predf)
+    return((2* And + smooth) / (keras.backend.sum(y_truef) + keras.backend.sum(y_predf) + smooth))
+def dice_coef_loss(y_true, y_pred):
+    return dice_coef(y_true, y_pred)
+def iou(y_true, y_pred):
+    intersection = keras.backend.sum(y_true * y_pred)
+    sum_ = keras.backend.sum(y_true + y_pred)
+    jac = (intersection + smooth) / (sum_ - intersection + smooth)
+    return jac
+def jac_distance(y_true, y_pred):
+    y_truef = keras.backend.flatten(y_true)
+    y_predf = keras.backend.flatten(y_pred)
+    return - iou(y_true, y_pred)
+from tensorflow.keras.metrics import binary_crossentropy
 
 adam = tf.keras.optimizers.Adam(lr = 0.05, epsilon = 0.1)
-model.compile(optimizer = adam,loss = focal_tversky,metrics = [tversky])
+model.compile(optimizer = adam,loss=[focal_tversky], metrics=["binary_accuracy", iou, dice_coef,tversky])
 earlystopping = EarlyStopping(monitor='val_loss',mode='min', verbose=1,patience=30)            
-checkpointer = ModelCheckpoint(filepath="C:/Users/GIGABYTE/Downloads/Brain Tumor Segmentation/seg_model.h5", 
+checkpointer = ModelCheckpoint(filepath="C:/Users/GIGABYTE/Downloads/Brain_Tumor_Segmentation/model_weight/VGG19UNet-segModel-weights.h5", 
                                verbose=1,save_best_only=True)
 reduce_lr = ReduceLROnPlateau(monitor='val_loss',
                               mode='min',verbose=1,patience=10,min_delta=0.0001,factor=0.2)
-history = model.fit(train_data,epochs = 50,validation_data = val_data,  
+history = model.fit(train_data,epochs = 100,validation_data = val_data,  
                   callbacks = [checkpointer, earlystopping, reduce_lr])
-model = load_model("seg_model.h5",custom_objects={"focal_tversky":focal_tversky,"tversky":tversky,"tversky_loss":tversky_loss})
 
-history.history.keys()
-plt.figure(figsize=(12,5))
-plt.subplot(1,2,1)
-plt.plot(history.history['loss']);
-plt.plot(history.history['val_loss']);
-plt.title("SEG Model focal tversky Loss");
-plt.ylabel("focal tversky loss");
-plt.xlabel("Epochs");
-plt.legend(['train', 'val']);
-plt.subplot(1,2,2)
-plt.plot(history.history['tversky']);
-plt.plot(history.history['val_tversky']);
-plt.title("SEG Model tversky score");
-plt.ylabel("tversky Accuracy");
-plt.xlabel("Epochs");
-plt.legend(['train', 'val']);
-plt.savefig("C:/Users/GIGABYTE/Downloads/Brain Tumor Segmentation/Training VGG19_U-Net.png")
 
+plot_history(history, path="C:/Users/GIGABYTE/Downloads/Brain_Tumor_Segmentation/img/Training_history_VGG19-Unet_Segmentation.png",
+             title="Training history VGG19-Unet Segmentation")
 
 test_ids = list(X_test.image_path)
 test_mask = list(X_test.mask_path)
-
 
 def prediction(test, model_seg):
     # empty list to store results
@@ -357,7 +347,7 @@ for i in range(len(df_pred)):
     if (count==15):
         break
 fig.tight_layout()     
-plt.savefig("C:/Users/GIGABYTE/Downloads/Brain Tumor Segmentation/VGG19_U-Net predict result.png")  
+plt.savefig("C:/Users/GIGABYTE/Downloads/Brain_Tumor_Segmentation/img/VGG19_U-Net predict result.png")  
 
 
 

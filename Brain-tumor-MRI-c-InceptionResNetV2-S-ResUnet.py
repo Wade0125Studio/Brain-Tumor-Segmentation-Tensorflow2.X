@@ -33,6 +33,7 @@ import os
 from skimage import io
 from PIL import Image
 from tensorflow.keras import backend as K
+from tensorflow import keras
 
 data = pd.read_csv('C:/Users/GIGABYTE/Downloads/Brain_Tumor_Segmentation/lgg-mri-segmentation/data.csv')
 data.info()
@@ -337,9 +338,27 @@ def focal_tversky(y_true,y_pred):
     return K.pow((1-pt_1), gamma)
 def tversky_loss(y_true, y_pred):
     return 1 - tversky(y_true,y_pred)
+def dice_coef(y_true, y_pred):
+    y_truef = keras.backend.flatten(y_true)
+    y_predf = keras.backend.flatten(y_pred)
+    And = keras.backend.sum(y_truef*y_predf)
+    return((2* And + smooth) / (keras.backend.sum(y_truef) + keras.backend.sum(y_predf) + smooth))
+def dice_coef_loss(y_true, y_pred):
+    return dice_coef(y_true, y_pred)
+def iou(y_true, y_pred):
+    intersection = keras.backend.sum(y_true * y_pred)
+    sum_ = keras.backend.sum(y_true + y_pred)
+    jac = (intersection + smooth) / (sum_ - intersection + smooth)
+    return jac
+def jac_distance(y_true, y_pred):
+    y_truef = keras.backend.flatten(y_true)
+    y_predf = keras.backend.flatten(y_pred)
+    return - iou(y_true, y_pred)
+
+
 
 adam = tf.keras.optimizers.Adam(lr = 0.001, epsilon = 0.1)
-model_seg.compile(optimizer = adam,loss = focal_tversky, metrics = [tversky])
+model_seg.compile(optimizer = adam,loss=[focal_tversky], metrics=["binary_accuracy", iou, dice_coef,tversky])
 earlystopping = EarlyStopping(monitor='val_loss',mode='min',verbose=1,patience=20)
 
 # save the best model with lower validation loss
